@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JASTIN</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('bg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Jim Nightshade", cursive;
+  }
+
+  .card {
+    width: 500px;
+    padding: 40px 30px;
+    background: linear-gradient( 
+    135deg,
+    rgba(0, 65, 59, 0.5),
+    rgba(19, 19, 47, 0.5),
+    rgba(7, 2, 18, 0.5) );
+    background-attachment: fixed;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+  p{
+    font-size: 30px;
+  }
+
+  .choices img {
+    width: 90px;
+    margin: 0 20px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .choices img:hover {
+    transform: scale(1.1);
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 18px;
+    background: #0d6b57;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+
+  .arrow {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    cursor: pointer;
+    font-size: 28px;
+  }
+
+  .backBtn {
+    margin-top: 20px;
+    background: #444;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 → Ask a Question -->
+<div id="page1" class="card active">
+  <h1>Can I Ask a Question?</h1>
+  <p>choose any...</p>
+  <div class="choices">
+    <img src="burger.png" id="yesBtn" />
+    <img src="mcfloat.png" id="noBtn" />
+  </div>
+</div>
+
+<!-- PAGE 2 → Burger Ka Sakin -->
+<div id="page2" class="card">
+  <h1>burger ka sakin</h1>
+  <button id="continue1">continue</button>
+</div>
+
+<!-- PAGE 3 → U Ready? -->
+<div id="page3" class="card">
+  <h1>u ready?</h1>
+  <button id="yesReady">YES</button>
+  <button id="noReady">NO</button>
+</div>
+
+<!-- PAGE 4 → Kupal -->
+<div id="page4" class="card">
+  <h1>KUPAL</h1>
+  <img src="kupal.jpg" width="180" />
+  <br />
+  <button class="backBtn" id="backToReady">Back</button>
+</div>
+
+<!-- PAGE 5 → What If? -->
+<div id="page5" class="card">
+  <h1>What if yung kausap mo rn<br />is may nagawa syang something weird?</h1>
+  <div class="arrow" id="nextArrow">➡️</div>
+</div>
+
+<script>
+  function show(page) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    document.getElementById(page).classList.add('active');
+  }
+
+  yesBtn.onclick = () => show('page2');
+  continue1.onclick = () => show('page3');
+  yesReady.onclick = () => show('page5');
+  noReady.onclick = () => show('page4');
+  backToReady.onclick = () => show('page3');
+  noBtn.onclick = () => show('pageMcfloat');
+</script>
+
+
+<!-- McFloat Page -->
+<div id="pageMcfloat" class="card">
+  <img src="kupal2.jpg" width="150" />
+  <h1>DON KA SA BURGER</h1>
+  <p>shooo....</p>
+  <button class="backBtn" id="backFromFloat" style="position:absolute; right:25px; bottom:25px;">Back</button>
+</div>
+
+<!-- Page 6 -->
+<div id="page6" class="card">
+  <h1>That you don’t want to happen?<br>or<br>Maybe like hindi sya pwedeng mangyari</h1>
+  <div class="arrow" id="next6">➡️</div>
+</div>
+
+<!-- Page 7 -->
+<div id="page7" class="card">
+  <h1>Wanna know what’s the<br>weird thing that<br>she made?</h1>
+  <div class="arrow" id="next7">➡️</div>
+</div>
+
+<!-- Page 8 -->
+<div id="page8" class="card">
+  <h1>The thing was that,<br>She likes you.<br>She fell for you.</h1>
+  <div class="arrow" id="next8">➡️</div>
+</div>
+
+<!-- Page 9 -->
+<div id="page9" class="card">
+  <h1>It’s weird right?<br>dyk why it becomes weird?</h1>
+  <div class="arrow" id="next9">➡️</div>
+</div>
+
+<!-- Page 10 -->
+<div id="page10" class="card" style="text-align:left; line-height:1.6;">
+  <p>Coz the thoughts in her mind that,
+  “It’s just happy crush”,
+  “She can control her feelings”,
+  ”Hindi sya mafafall”,
+  “And she’ll wait nalang baka infatuated feeeling lang yon”
+  - yes she waited one month - is that too short to know if her feelings was not infatuated?
+  And now she finally made the decision to confess her feelings she has rn for almost two months already.
+  Yes po I’m talking to myself.
+  I’m not expecting any good, positive response for this,
+  I just want to express my feelings before this yr end.</p>
+<button id="exitBtn" class="backBtn" style="margin-top:20px;">EXIT</button>
+
+</div>
+
+<script>
+  backFromFloat.onclick = () => show('page1');
+  nextArrow.onclick = () => show('page6');
+  next6.onclick = () => show('page7');
+  next7.onclick = () => show('page8');
+  next8.onclick = () => show('page9');
+  next9.onclick = () => show('page10');
+  exitBtn.onclick = () => window.close();
+
+</script>
+
+</body>
+</html>
