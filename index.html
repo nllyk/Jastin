@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JASTIN</title>
 <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap" rel="stylesheet">
 <style>
@@ -53,6 +53,45 @@ html, body{
   transform:translateY(10px) scale(0.996);
   transition:opacity .36s ease, transform .36s ease;
 }
+/* --------------------------------------------------
+   ADVANCED PAGE TRANSITION ANIMATION (B + D STYLE)
+   3D FLIP + SLIDE + FADE COMBO
+-------------------------------------------------- */
+
+/* Hide cards elegantly */
+.card {
+  opacity: 0;
+  transform: translateY(20px) rotateX(25deg) scale(0.96);
+  filter: blur(6px);
+  transition:
+    opacity .6s ease,
+    transform .6s cubic-bezier(.22,.61,.36,1),
+    filter .6s ease;
+}
+
+/* Show cards with smooth animation */
+.card.active {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg) scale(1);
+  filter: blur(0px);
+}
+
+/* Exit animation – when removing .active */
+.card.exiting {
+  opacity: 0;
+  transform: translateY(-25px) rotateX(-35deg) scale(0.9);
+  filter: blur(12px);
+  transition:
+    opacity .55s ease,
+    transform .55s cubic-bezier(.55,.02,.39,.94),
+    filter .55s ease;
+}
+
+/* Add smooth perspective wrapper for 3D motion */
+.stage {
+  perspective: 1200px;
+}
+
 
 .card.active{
   display:flex;
@@ -67,6 +106,15 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
 .choices img{width:84px;height:auto;border-radius:12px;cursor:pointer;transition: transform .18s ease;}
 .choices img:hover{transform: scale(1.06); box-shadow:0 8px 20px rgba(0,0,0,0.5);}
 
+#yesBtn, #noBtn{
+  animation: floatBoat 3s ease-in-out infinite alternate;
+}
+@keyframes floatBoat{
+  0% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+  100% { transform: translateY(0) rotate(-1deg); }
+}
+
 .burger-wrapper{display:flex;justify-content:center;margin:14px 0;}
 .burger{width:140px;height:auto;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.45);}
 
@@ -79,6 +127,25 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
 .controls{display:flex; gap:10px; justify-content:center; margin-top:18px; flex-wrap:wrap;}
 .arrow{position:absolute; right:18px; bottom:16px; cursor:pointer; font-size:26px; user-select:none;}
 
+.carousel-container{
+  width:100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  margin-top:12px;
+}
+.carousel-track{
+  display:flex;
+  gap:12px;
+}
+.carousel-track img{
+  width:100%;
+  flex-shrink:0;
+  border-radius:12px;
+  margin:0 6px;
+}
+
 @media(max-width:520px){
   .card{padding:24px 18px; border-radius:12px; min-height:260px;}
   .choices img{width:72px;}
@@ -90,6 +157,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
 <body>
 
 <div class="stage">
+<audio id="bgAudio" src="audio/bg2.mp3" loop></audio>
 
   <!-- PAGE 1 -->
   <section id="page1" class="card active">
@@ -98,6 +166,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
       <img src="burger.png" id="yesBtn" alt="Burger choice"/>
       <img src="mcfloat.png" id="noBtn" alt="McFloat choice"/>
     </div>
+    <audio id="audio1" src="audio/page1.mp3"></audio>
   </section>
 
   <!-- PAGE 2 -->
@@ -108,6 +177,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
       <button id="continue1" class="btn">Continue</button>
       <button id="backFrom2" class="btn ghost small">Back</button>
     </div>
+    <audio id="audio2" src="audio/page2.mp3"></audio>
   </section>
 
   <!-- PAGE 3 -->
@@ -117,6 +187,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
       <button id="yesReady" class="btn">YES</button>
       <button id="noReady" class="btn ghost">NO</button>
     </div>
+    <audio id="audio3" src="audio/page3 .mp3"></audio>
   </section>
 
   <!-- PAGE 4 -->
@@ -125,15 +196,17 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
     <p>ay este BOGUS</p>
     <div class="burger-wrapper"><img src="kupal.jpg" style="width:160px;border-radius:10px"/></div>
     <div class="controls"><button id="backToReady" class="btn backBtn">Back</button></div>
+    <audio id="audio4" src="audio/page4.m4a"></audio>
   </section>
 
   <!-- PAGE 5 -->
   <section id="page5" class="card">
-    <h1>SURE NA BA YAN ATE</h1SURE>??</h1>
+    <h1>SURE NA BA YAN ATE??</h1>
     <div class="controls">
       <button id="yesSure" class="btn">YES</button>
       <button id="noSure" class="btn ghost">NO</button>
     </div>
+    <audio id="audio5" src="audio/page5.m4a"></audio>
   </section>
 
   <!-- PAGE 6A -->
@@ -144,6 +217,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
       <button id="continue6a" class="btn">tuloy..</button>
       <button id="back6a" class="btn ghost small">Back</button>
     </div>
+    <audio id="audio6a" src="audio/page6a.mp3"></audio>
   </section>
 
   <!-- PAGE 6B -->
@@ -153,6 +227,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
       <button id="continue6b" class="btn">tuloy na</button>
       <button id="back6b" class="btn ghost small">Back</button>
     </div>
+    <audio id="audio6b" src="audio/page6b.m4a"></audio>
   </section>
 
   <!-- PAGE 6C -->
@@ -162,6 +237,7 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
       <button id="continue6c" class="btn">tuloy po kayo..</button>
       <button id="back6c" class="btn ghost small">Back</button>
     </div>
+    <audio id="audio6c" src="audio/page6c.mp3"></audio>
   </section>
 
   <!-- PAGE 7 -->
@@ -169,9 +245,10 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
     <h1>OH KUPAL JASTIN</h1>
     <div class="burger-wrapper"><img src="kupal.jpg" style="width:160px;border-radius:10px"/></div>
     <div class="controls"><button id="backToSure" class="btn backBtn">Back</button></div>
+    <audio id="audio7" src="audio/page7.m4a"></audio>
   </section>
 
-  <!-- McFloat -->
+  <!-- PAGE McFloat -->
   <section id="pageMcfloat" class="card">
     <h1>DUN KA SA BURGER</h1>
     <p>bawal ka dito — shooo....</p>
@@ -179,120 +256,173 @@ p{font-size:clamp(14px,3vw,20px); color:var(--muted); margin:0 0 18px 0;}
     <div class="controls">
       <button id="backFromFloat" class="btn ghost small">Back</button>
     </div>
+    <audio id="audioFloat" src="audio/page8.m4a"></audio>
   </section>
 
-  <!-- PAGE 8 -->
-  <section id="page8" class="card">
-    <h1>ANO KASEEE....</h1>
-    <div class="arrow" id="next8">➡️</div>
-  </section>
+  <!-- PAGE 8 to PAGE 16 (confession sequence) -->
+  <section id="page8" class="card"><h1>ANO KASEEE....</h1><div class="arrow" id="next8">➡️</div><audio id="audio8" src="audio/page9.mp3"></audio></section>
+  <section id="page9" class="card"><h1>UHMMMMM..........................</h1><div class="arrow" id="next9">➡️</div><audio id="audio9" src="audio/page10.mp3"></audio></section>
+  <section id="page10" class="card"><h1>UHMMMM...MMMMMMMM........</h1><div class="arrow" id="next10">➡️</div><audio id="audio10" src="audio/page11.mp3"></audio></section>
+  <section id="page11" class="card"><h1>LAMIG NO??</h1><p>hindi? kapal kase ng balat jastin</p><div class="arrow" id="next11">➡️</div><audio id="audio11" src="audio/page12.mp3"></audio></section>
+  <section id="page12" class="card"><h1>RAMDAM KO NA KASE YUNG PASKO, IKAW BA???....</h1><p>edi hindiii</p><div class="arrow" id="next12">➡️</div><audio id="audio12" src="audio/page13 (2).mp3"></audio></section>
+  <section id="page13" class="card"><h1>RAMDAM MO DIN BA NARARAMDAMAN KO SAYO???</h1><p>AAAAAAAHHHHHHHH!!!!!!!!!!!</p><div class="arrow" id="next13">➡️</div><audio id="audio13" src="audio/page13.mp3"></audio></section>
+  <section id="page15" class="card"><h1>K.BYE</h1><p>ayokoo naaaaa</p><div class="controls"><button id="next15" class="btn">Continue</button></div><audio id="audio15" src="audio/page15.mp3"></audio></section>
+  <section id="page16" class="card"><h1>TAKE THIS SERIOUSLY, MASISIRA BUHAY MO :></h1><div class="controls"><button id="toPage17" class="btn backBtn">PINDUTIN MO</button></div><audio id="audio16" src="audio/page16.mp3"></audio></section>
 
-  <!-- PAGE 9 -->
-  <section id="page9" class="card">
-    <h1>UHMMMMM..........................</h1>
-    <div class="arrow" id="next9">➡️</div>
-  </section>
-
-  <!-- PAGE 10 -->
-  <section id="page10" class="card">
-    <h1>UHMMMM...MMMMMMMM........</h1>
-    <div class="arrow" id="next10">➡️</div>
-  </section>
-
-  <!-- PAGE 11 -->
-  <section id="page11" class="card">
-    <h1>LAMIG NO??</h1>
-    <p>hindi? kapal kase ng balat jastin</p>
-    <div class="arrow" id="next11">➡️</div>
-  </section>
-
-  <!-- PAGE 12 -->
-  <section id="page12" class="card">
-    <h1>RAMDAM KO NA KASE YUNG PASKO, IKAW BA???....</h1>
-    <p>edi hindiii</p>
-    <div class="arrow" id="next12">➡️</div>
-  </section>
-
-  <!-- PAGE 13 -->
-  <section id="page13" class="card">
-    <h1>RAMDAM MO DIN BA NARARAMDAMAN KO SAYO???</h1>
-    <p>AAAAAAAHHHHHHHH!!!!!!!!!!!</p>
-    <div class="arrow" id="next13">➡️</div>
-  </section>
-
-  <!-- PAGE 15 -->
-  <section id="page15" class="card">
-    <h1>K.BYE</h1>
-    <p>ayokoo naaaaa</p>
-    <div class="controls">
-      <button id="next15" class="btn">Continue</button>
+  <!-- PAGE 17 (Carousel + Exit) -->
+  <section id="page17" class="card">
+    <div class="carousel-container">
+      <div class="carousel-track" id="carouselTrack">
+        <img src="img1.webp">
+        <img src="img2.webp">
+        <img src="img3.webp">
+        <img src="img4.webp">
+        <img src="img5.webp">
+        <img src="img6.webp">
+      </div>
     </div>
-  </section>
-
-  <!-- PAGE 16 -->
-  <section id="page16" class="card">
-    <h1>TAKE THIS SERIOUSLY, MASISIRA BUHAY MO :&gt;</h1>
     <div class="controls">
       <button id="exitBtn" class="btn backBtn">EXIT</button>
     </div>
+    <audio id="audio17" src="audio/page17.mp3" loop></audio>
   </section>
 
 </div>
 
 <script>
-function show(id){
-  document.querySelectorAll('.card').forEach(c=>{
-    c.classList.remove('active');
-    c.style.display='none';
-  });
-  const el=document.getElementById(id);
-  el.style.display='flex';
-  setTimeout(()=>el.classList.add('active'),10); // trigger transition
+// ====== Audio Setup ======
+let userInteracted = false;
+const bgAudio = document.getElementById('bgAudio');
+bgAudio.volume = 1.0; // soft background music
+bgAudio.loop = true;
+
+// Play page audio clearly over background
+function playPageAudio(el){
+  if(!el) return;
+  el.currentTime = 0;
+  el.volume = 1; // full volume for page audio
+  el.play().catch(()=>{});
 }
 
+// Show/hide pages
+function show(id){
+  const pages = document.querySelectorAll('.card');
+  const newPage = document.getElementById(id);
+
+  pages.forEach(page=>{
+    if(page.classList.contains('active')){
+      page.classList.remove('anim-in');
+      page.classList.add('anim-out');
+
+      setTimeout(()=>{
+        page.classList.remove('active','anim-out');
+        page.style.display='none';
+      }, 350);
+    }
+  });
+// Patch show() to include exit animation + keep audio logic working
+const originalShowFunction = show;
+
+show = function(id){
+  const currentPage = document.querySelector('.card.active');
+
+  // EXIT animation
+  if(currentPage){
+    currentPage.classList.add('exiting');
+
+    // 🔥 STOP old page audio before switching
+    const oldAudio = currentPage.querySelector('audio');
+    if (oldAudio) {
+      oldAudio.pause();
+      oldAudio.currentTime = 0;
+    }
+
+    setTimeout(() => currentPage.classList.remove('exiting'), 600);
+  }
+
+  // Continue with original show() logic (includes playing the new audio)
+  originalShowFunction(id);
+};
+
+
+  // Show next page AFTER fade-out
+  setTimeout(()=>{
+    newPage.style.display='flex';
+
+    setTimeout(()=>newPage.classList.add('active','anim-in'), 10);
+
+    if(userInteracted){
+      const audioEl = newPage.querySelector('audio');
+      playPageAudio(audioEl);
+    }
+  }, 350);
+}
+
+
+// Enable audio after first user interaction
+document.body.addEventListener('click', ()=>{
+  if(userInteracted) return;
+  userInteracted = true;
+  bgAudio.play().catch(()=>{});
+  const currentAudio = document.querySelector('.card.active audio');
+  playPageAudio(currentAudio);
+}, {once:true});
+
+// ====== Page Navigation ======
 // Page flows
 document.getElementById('yesBtn').onclick = () => show('page2');
 document.getElementById('noBtn').onclick = () => show('pageMcfloat');
 document.getElementById('backFromFloat').onclick = () => show('page1');
-
 document.getElementById('continue1').onclick = () => show('page3');
 document.getElementById('backFrom2').onclick = () => show('page1');
-
 document.getElementById('yesReady').onclick = () => show('page5');
 document.getElementById('noReady').onclick = () => show('page4');
 document.getElementById('backToReady').onclick = () => show('page3');
-
 document.getElementById('yesSure').onclick = () => show('page6a');
 document.getElementById('noSure').onclick = () => show('page7');
-
 document.getElementById('continue6a').onclick = () => show('page6b');
 document.getElementById('back6a').onclick = () => show('page5');
-
 document.getElementById('continue6b').onclick = () => show('page6c');
 document.getElementById('back6b').onclick = () => show('page6a');
-
 document.getElementById('continue6c').onclick = () => show('page8');
 document.getElementById('back6c').onclick = () => show('page6b');
-
 document.getElementById('backToSure').onclick = () => show('page5');
 
-// confession sequence
+// Confession sequence
 document.getElementById('next8').onclick = () => show('page9');
 document.getElementById('next9').onclick = () => show('page10');
 document.getElementById('next10').onclick = () => show('page11');
 document.getElementById('next11').onclick = () => show('page12');
 document.getElementById('next12').onclick = () => show('page13');
 document.getElementById('next13').onclick = () => show('page15');
-
-// page 15 → 16
 document.getElementById('next15').onclick = () => show('page16');
+document.getElementById('toPage17').onclick = () => show('page17');
 
-// last pages
-document.getElementById('exitBtn').onclick = () => show('page1');
+// Exit button
+document.getElementById('exitBtn').onclick = () => window.close();
 
-// initial page
+// Initial page
 show('page1');
+
+// ====== Carousel Manual Scroll ======
+const track = document.getElementById('carouselTrack');
+let isDragging=false,startX,scrollLeft;
+track.parentElement.addEventListener('mousedown',e=>{
+  isDragging=true;
+  startX = e.pageX - track.parentElement.offsetLeft;
+  scrollLeft = track.parentElement.scrollLeft;
+});
+track.parentElement.addEventListener('mouseleave',()=>isDragging=false);
+track.parentElement.addEventListener('mouseup',()=>isDragging=false);
+track.parentElement.addEventListener('mousemove',e=>{
+  if(!isDragging) return;
+  e.preventDefault();
+  const x = e.pageX - track.parentElement.offsetLeft;
+  const walk = (x-startX)*1;
+  track.parentElement.scrollLeft = scrollLeft - walk;
+});
 </script>
+
 
 </body>
 </html>
